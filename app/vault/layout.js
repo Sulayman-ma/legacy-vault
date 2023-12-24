@@ -16,11 +16,11 @@ export default function Layout({ children }) {
       const { Web5 } = await import('@web5/api')
       const { web5, did: myDid } = await Web5.connect({
         sync: '10s',
-        techPreview: {
-          dwnEndpoints: [
-            "http://localhost:2222"
-          ]
-        }
+        // techPreview: {
+        //   dwnEndpoints: [
+        //     "http://localhost:2222"
+        //   ]
+        // }
       })
 
       setWeb5(web5)
