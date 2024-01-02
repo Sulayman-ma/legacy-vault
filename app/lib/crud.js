@@ -142,7 +142,6 @@ export async function getCredentials(web5) {
             type: vc.type,
             claim: vc.vcDataModel.credentialSubject,          
           }
-          console.info(details)
           return details;
         })
       );
