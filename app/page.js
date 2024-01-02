@@ -1,10 +1,11 @@
-import Link from 'next/link'
+'use client'
+
+import HeroText from './components/overview/hero-text'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Home page here
-      <Link href="/vault">Go to Vault</Link>
+    <main>
+      <HeroText />
     </main>
   )
 }

@@ -1,40 +1,20 @@
-const shimmer =
-  'before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent';
+import {
+  Card,
+  CardBody,
+  ListItem,
+} from "@material-tailwind/react"
 
-export function RecordTableSkeleton() {
+export function MiniCardSkeleton() {
   return (
-    <div className={`relative overflow-hidden rounded-md p-2 shadow-sm`}>
-      <table className="w-full border-collapse border rounded-md overflow-hidden">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="py-2 px-4 border">Loading...</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="py-2 px-4 border">
-              <div className={`${shimmer} bg-gray-200 animate-pulse`}>&nbsp;</div>
-            </td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4 border">
-              <div className={`${shimmer} bg-gray-200 animate-pulse`}>&nbsp;</div>
-            </td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4 border">
-              <div className={`${shimmer} bg-gray-200 animate-pulse`}>&nbsp;</div>
-            </td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4 border">
-              <div className={`${shimmer} bg-gray-200 animate-pulse`}>&nbsp;</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Card className="w-auto max-w-[20rem] mr-2 mb-3 p-0 bg-gray-900 animate-pulse">
+        <CardBody>
+          <ListItem disabled={true} className="w-1/2 bg-gray-800 p-0 mb-2 rounded-lg hover:bg-transparent">
+            &nbsp;
+          </ListItem>
+          <ListItem disabled={true} className="bg-gray-800 p-0 rounded-lg hover:bg-transparent">
+            &nbsp;
+          </ListItem>
+        </CardBody>
+      </Card>
   )
 }
-
-export function CredentialsSkeleton() {}
