@@ -41,9 +41,7 @@ export function WillMini({ setAsActive, assetData }) {
               <LockClosedIcon className="w-5 h-5 m-auto" />
             </ListItemSuffix>
           </ListItem>
-          {
-            assetData ? 
-            assetData.claim.attachment ? 
+          { assetData.claim.attachment ? (
             <ListItem 
               color="transparent" 
               ripple={false}
@@ -54,9 +52,7 @@ export function WillMini({ setAsActive, assetData }) {
                 <PaperClipIcon className="w-5 h-5" />
               </ListItemSuffix>
             </ListItem>
-            : '' 
-            : ''
-          }
+          ) : '' }
         </CardBody>
       </Card>
     </Link>
@@ -91,9 +87,7 @@ export function SecretMini({ setAsActive, assetData }) {
           <Typography className="text-gray-500" variant="h6">
             {assetData.platform}
           </Typography>
-          {
-            assetData ? 
-            assetData.attachment ? 
+          { assetData.attachment ? (
             <ListItem 
               color="transparent" 
               ripple={false}
@@ -104,9 +98,7 @@ export function SecretMini({ setAsActive, assetData }) {
                 <PaperClipIcon className="w-5 h-5" />
               </ListItemSuffix>
             </ListItem>
-            : '' 
-            : ''
-          }
+          ) : '' }
         </CardBody>
       </Card>
     </Link>
@@ -138,9 +130,7 @@ export function MessageMini({ setAsActive, assetData }) {
               <DocumentTextIcon className="w-5 h-5 m-auto" />
             </ListItemSuffix>
           </ListItem>
-          {
-            assetData ? 
-            assetData.claim.attachment ? 
+          { assetData.claim.attachment ? (
             <ListItem 
               color="transparent" 
               ripple={false}
@@ -151,9 +141,7 @@ export function MessageMini({ setAsActive, assetData }) {
                 <PaperClipIcon className="w-5 h-5" />
               </ListItemSuffix>
             </ListItem>
-            : '' 
-            : ''
-          }
+          ) : '' }
         </CardBody>
       </Card>
     </Link>
@@ -185,9 +173,7 @@ export function LegalDocumentMini({ setAsActive, assetData }) {
               <DocumentIcon className="w-5 h-5 m-auto" />
             </ListItemSuffix>
           </ListItem>
-          {
-            assetData ? 
-            assetData.claim.attachment ? 
+          { assetData.claim.attachment ? (
             <ListItem 
               color="transparent" 
               ripple={false}
@@ -198,9 +184,7 @@ export function LegalDocumentMini({ setAsActive, assetData }) {
                 <PaperClipIcon className="w-5 h-5" />
               </ListItemSuffix>
             </ListItem>
-            : '' 
-            : ''
-          }
+          ) : '' }
         </CardBody>
       </Card>
     </Link>
