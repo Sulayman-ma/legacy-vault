@@ -48,13 +48,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${poppins.className} overflow-auto`}>
-        <Web5Context.Provider value={{
-          web5: web5,
-          myDid: myDid,
-          isConnected: isConnected
-        }}>
-          {children}
-        </Web5Context.Provider>
+        {
+          web5 && myDid ? 
+          <Web5Context.Provider value={{
+            web5: web5,
+            myDid: myDid,
+            isConnected: isConnected
+          }}>
+            {children}
+          </Web5Context.Provider>
+          : ''
+        }
+        
       </body>
     </html>
   )

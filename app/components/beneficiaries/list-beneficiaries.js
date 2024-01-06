@@ -83,53 +83,56 @@ export default function ListBeneficiaries({
             ))}
           </tr>
         </thead>
-        <tbody>
-          {beneficiaries.map(({ recordId, name, relationship, did }) => {
-            const classes = "p-4 border-b border-white-50";
- 
-            return (
-              <tr key={recordId}>
-                <td className={classes}>
-                  <Typography
-                    variant="paragraph"
-                    color="white"
-                    className="font-semibold"
-                  >
-                    {name}
-                  </Typography>
-                </td>
-                <td className={`hidden md:table-cell ${classes}`}>
-                  <Typography
-                    variant="paragraph"
-                    color="white"
-                    className="font-semibold"
-                  >
-                    {did ? (did.substring(0, 20) + '...') : 'No DID'}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Typography
-                    variant="paragraph"
-                    color="white"
-                    className="font-semibold"
-                  >
-                    {relationship}
-                  </Typography>
-                </td>
-                <td className={classes}>
-                  <Button
-                    variant="gradient"
-                    color="red"
-                    className="font-medium"
-                    onClick={() => {handleRemove(name, recordId)}}
-                  >
-                    Remove
-                  </Button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+        {
+          beneficiaries ? 
+          <tbody>
+            {beneficiaries.map(({ recordId, name, relationship, did }) => {
+              const classes = "p-4 border-b border-white-50";
+  
+              return (
+                <tr key={recordId}>
+                  <td className={classes}>
+                    <Typography
+                      variant="paragraph"
+                      color="white"
+                      className="font-semibold"
+                    >
+                      {name}
+                    </Typography>
+                  </td>
+                  <td className={`hidden md:table-cell ${classes}`}>
+                    <Typography
+                      variant="paragraph"
+                      color="white"
+                      className="font-semibold"
+                    >
+                      {did ? (did.substring(0, 20) + '...') : 'No DID'}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="paragraph"
+                      color="white"
+                      className="font-semibold"
+                    >
+                      {relationship}
+                    </Typography>
+                  </td>
+                  <td className={classes}>
+                    <Button
+                      variant="gradient"
+                      color="red"
+                      className="font-medium"
+                      onClick={() => {handleRemove(name, recordId)}}
+                    >
+                      Remove
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody> : ''
+        }
       </table>
 
       {/* CONFIRM REMOVE BENEFICIARY DIALOG */}

@@ -6,7 +6,7 @@ import { useContext } from "react"
 export default function Vault() {
 
   // using global web5 context
-  const { web5 } = useContext(Web5Context)
+  // const { web5 } = useContext(Web5Context)
 
   return(
     <></>

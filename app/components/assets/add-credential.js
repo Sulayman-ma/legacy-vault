@@ -8,11 +8,8 @@ import {
   Input,
   Textarea,
   Alert,
-  Dialog,
-  DialogBody,
   Spinner,
 } from "@material-tailwind/react"
-import CustomAlert from '@/app/components/alert';
 import { useContext, useEffect, useState } from "react";
 import { addCredential, convertToBase64, getBeneficiaries } from "../../lib/crud";
 import { Web5Context } from "@/app/lib/contexts";
@@ -26,7 +23,7 @@ export default function AddCredential() {
   const [credentialType, setCredentialType] = useState('')
   const [credentialTitle, setCredentialTitle] = useState('')
   const [credentialContent, setCredentialContent] = useState('')
-  const [credentialTarget, setCredentialTarget] = useState('')
+  const [credentialTarget, setCredentialTarget] = useState(null)
   const [attachment, setAttachment] = useState(null)
   const [isFormReady, setIsFormReady] = useState(false);
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -246,11 +243,11 @@ export default function AddCredential() {
         >
           add
         </Button>
-        {/* <div className="flex justify-center items-center"> */}
+        <div className="flex justify-center items-center">
           {loading && (
             <Spinner color="orange" />
           )}
-        {/* </div> */}
+        </div>
       </div>
     </form>
   );
