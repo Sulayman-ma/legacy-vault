@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     const initWeb5 = async () => {
       try {
-        const { Web5 } = await import('@web5/api')
+        const { Web5 } = await import('@web5/api/browser')
         const { web5, did: myDid } = await Web5.connect({
           sync: '5s',
           // techPreview: {
