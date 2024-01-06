@@ -55,8 +55,7 @@ export default function RootLayout({ children }) {
             myDid: myDid,
             isConnected: isConnected
           }}>
-            {/* {children} */}
-            <span className='text-white'>welcome to my site or something</span>
+            {children}
           </Web5Context.Provider>
           : ''
         }
