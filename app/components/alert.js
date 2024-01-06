@@ -12,6 +12,7 @@ export default function CustomAlert({ alertInfo }) {
       open={localOpen}
       onClose={dismiss}
       color={alertInfo.color}
+      className="my-5"
     >
       {alertInfo.content}
     </Alert>

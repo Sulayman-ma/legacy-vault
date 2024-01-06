@@ -1,16 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import { addSecret } from '../../lib/crud';
 import {
   Typography,
   Button,
   Input
 } from "@material-tailwind/react"
 import CustomAlert from '@/app/components/alert';
+import { useState, useEffect, useContext } from 'react';
+import { addSecret } from '../../lib/crud';
+import { Web5Context } from '@/app/lib/contexts';
 
-export default function AddSecret({ web5 }) {
+export default function AddSecret() {
+  // WEB5 CONTEXT
+  const { web5 } = useContext(Web5Context)
 
+  // COMPONENT STATES
   const [accountName, setAccountName] = useState('');
   const [phrase, setPhrase] = useState('');
   const [platform, setPlatform] = useState('');
@@ -20,24 +24,26 @@ export default function AddSecret({ web5 }) {
     color: '',
     content: '',
   })
-
+  
+  // DISABLE SUBMIT IF WEB5 IS UNAVAILABLE AND ANY FIELD IS EMPTY
   useEffect(() => {
-    // web5 must be available to enable submit
-    setIsFormReady((web5 !== null) && accountName.length > 0 && phrase.length > 0);
+    setIsFormReady((
+      web5 !== null) && 
+      accountName.length > 0 && 
+      phrase.length > 0
+    );
   }, [web5, accountName, phrase]);
 
+  // CLICK ACTION HANDLERS
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-
       const recordData = {
         account_name: accountName,
         phrase: phrase,
         platform: platform
       }
-
       const record = await addSecret(web5, recordData);
-
       setAlertInfo({
         open: true,
         color: 'green',
@@ -111,7 +117,7 @@ export default function AddSecret({ web5 }) {
       </div>
       <div className='flex justify-center'>
         <Button 
-          className="w-1/4 mt-6 bg-black"
+          className="w-2/5 md:w-1/3 lg:w-1/3 mt-6 bg-black hover:bg-gray-800"
           fullWidth
           disabled={!isFormReady}
           type='submit'

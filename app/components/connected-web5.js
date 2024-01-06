@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import { useContext } from "react";
 import { Web5Context } from "../lib/contexts";
+import { Typography } from "@material-tailwind/react";
 
 export function Web5Connected() {
 
@@ -11,19 +12,25 @@ export function Web5Connected() {
   return(
     <div className="flex items-center">
       <div className={clsx(
-        "w-8 h-8 rounded-full flex items-center justify-center mr-2",
+        "w-5 h-5 md:w-7 md:h-7 rounded-full flex items-center justify-center mr-2",
         {
           "bg-green-700": isConnected,
-          "bg-blue-500": !isConnected,
+          "animate-pulse bg-blue-800": !isConnected,
         },
       )}>
       </div>
       {
-        isConnected ? (
-          <span className="text-xs uppercase font-smallcaps transition-opacity duration-500">web5 connected</span>
-        ) : (
-          <span className="text-xs uppercase font-smallcaps">connecting...</span>
-        )
+        <Typography 
+          variant="small"
+          color="gray"
+          className={clsx(
+            "uppercase font-smallcaps hidden md:block"
+          )}
+        >
+          {
+            isConnected ? 'web5 connected' : 'connecting'
+          }
+        </Typography>
       }
     </div>
   )

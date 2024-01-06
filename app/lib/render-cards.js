@@ -3,83 +3,60 @@ import {
   WillMini,
   LegalDocumentMini,
   MessageMini,
-  NewAssetMini
 } from "@/app/components/assets/mini-cards"
-import {
-  WillCard,
-  SecretCard,
-  MessageCard,
-  LegalDocumentCard,
-  NewAssetCard,
+import { 
+  BlankCard,  
+  NewAssetCard, 
 } from '@/app/components/assets/detailed-cards'
-import { Typography, CardBody } from "@material-tailwind/react";
+import OtherCard from "../components/assets/other-card";
+import SecretCard from "../components/assets/secret-card";
 
-export const renderMiniCard = (group, cardInfo, setActiveAsset) => {
+export const renderMiniCard = (group, assetData, setActiveAsset) => {
   switch (group) {
     case 'Will':
       return (
         <WillMini 
           setAsActive={setActiveAsset} 
-          cardInfo={cardInfo}
+          assetData={assetData}
         />
       );
     case 'Secret':
       return (
         <SecretMini 
           setAsActive={setActiveAsset} 
-          cardInfo={cardInfo}
+          assetData={assetData}
         />
       );
     case 'Legal Document':
       return (
         <LegalDocumentMini 
           setAsActive={setActiveAsset} 
-          cardInfo={cardInfo}
+          assetData={assetData}
         />
       );
     case 'Special Message':
       return (
         <MessageMini 
           setAsActive={setActiveAsset} 
-          cardInfo={cardInfo}
+          assetData={assetData}
         />
       );
-    // default:
-    //   return null;
   }
 }
 
 export const renderDetailedCard = (stuff) => {
   switch (stuff.group) {
-    case 'Will':
+    case 'new_asset':
+      return <NewAssetCard />;
+    case 'welcome':
       return (
-        <WillCard cardInfo={stuff.cardInfo}  />
+        <BlankCard />
       );
     case 'Secret':
       return (
-        <SecretCard cardInfo={stuff.cardInfo}  />
+        <SecretCard assetData={stuff.assetData} />
       );
-    case 'Legal Document':
-      return (
-        <LegalDocumentCard cardInfo={stuff.cardInfo}  />
-      );
-    case 'Special Message':
-      return (
-        <MessageCard cardInfo={stuff.cardInfo}  />
-      );
-    case 'new_asset':
-      return <NewAssetCard />;
-    default:
-      return (
-        <CardBody className="flex justify-center">
-          <Typography 
-            color="white"
-            className="text-center"
-            variant="h3"
-          >
-            Hi there
-          </Typography>
-        </CardBody> 
-      );
+    default:  
+      return (<OtherCard assetData={stuff.assetData} />);
   }
 }

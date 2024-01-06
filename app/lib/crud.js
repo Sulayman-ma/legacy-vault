@@ -7,23 +7,20 @@ export async function addCredential(web5, vcData) {
     const portableDid = await DidIonMethod.create()
     const didString = portableDid.did
     const { type, subject, ...rest } = vcData
+    
     // create VC object
     const vc = await VerifiableCredential.create({
       type: type,
       issuer: didString,
-      subject: subject === 'self' ? didString : subject,
+      subject: subject === 'personal' ? 'Personal' : subject,
       data: rest
     });
-
-    console.info(vc)
 
     // sign VC with portable DID
     const signedVcJwt = await vc.sign({ did: portableDid })
 
-    console.info('Signed VC', signedVcJwt)
-
     // create record for signed VC and store here
-    const { record } = await web5.dwn.records.create({
+    const response = await web5.dwn.records.create({
       data: {
         group: type,
         payload: signedVcJwt,
@@ -35,8 +32,8 @@ export async function addCredential(web5, vcData) {
         dataFormat: 'application/json'
       }
     })
-    console.info(await record.data.json())
-    return record
+
+    return response.status.code
   } catch (error) {
     console.error('Add credential failed:', error)
     throw new Error('Failed to add entry')
@@ -57,7 +54,7 @@ export async function addSecret(web5, recordData) {
         dataFormat: 'application/json'
       }
     })
-
+    console.info(response.status)
     return response
   } catch (error) {
     console.error('Add pass failed:', error)
@@ -177,6 +174,14 @@ export async function getAssets(web5) {
   }
 }
 
+export async function getBenByDid(web5, did) {
+  const beneficiaries = await getBeneficiaries(web5)
+  const match = await beneficiaries.find(data => data.did === did)
+  if (match === undefined) {
+    return {name: 'Personal'}
+  } else { return match }
+}
+
 export async function getBeneficiaries(web5) {
   try {
     const response = await web5.dwn.records.query({
@@ -253,4 +258,76 @@ export async function deleteRecord(web5, recordId) {
     console.error('Delete record failed:', error)
     throw new Error('Failed to delete record')
   }
+}
+
+export async function convertToBase64(file) {
+  // CONVERT IMAGE FILE TO BASE64 STRING
+  const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    reader.onload = () => {
+      const base64String = reader.result.split(',')[1];
+      resolve(base64String);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+export async function convertBase64ToFile(base64String, title) {
+  // console.info('Converting the base64 string to a file...')
+  // setting filename
+  const { extension, mimeType } = getFileInfo(base64String)
+  const fileName = `${title}.${extension}`
+
+  // creating byte array for whatever reason I cannot remember
+  const byteCharacters = atob(base64String);
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+    const slice = byteCharacters.slice(offset, offset + 512);
+
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+
+  const file = new File(
+    byteArrays, 
+    fileName, 
+    { type: mimeType }
+  );
+  return file;
+}
+
+export function getFileInfo(base64String) {
+  // CONVERT BASE64 STRING TO ITS APPROPRIATE FILE DATA
+  let mimeType = null
+  var data = base64String.substring(0, 5);
+  // console.info('Head of base64 string', data)
+  switch (data.toUpperCase()) {
+    case "IVBOR":
+      mimeType = "image/png";
+      break
+    case "/9J/4":
+      mimeType = "image/jpeg";
+      break
+    case "JVBER" || "%PDF-":
+      mimeType = "application/pdf";
+      break
+    default:
+      mimeType = "text/plain";
+  }
+
+  const extension = 
+  `${mimeType.startsWith('text') ? 'text' : mimeType.split('/')[1]}`
+
+  return {
+    mimeType: mimeType,
+    extension: extension
+  }
+
 }
